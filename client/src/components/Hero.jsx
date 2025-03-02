@@ -15,10 +15,6 @@ const Hero = () => {
             location : locationRef.current.value
         })
         setIsSearched(true)
-        console.log({
-            title: titleRef.current.value,
-            location : locationRef.current.value
-        })
     }
 
   return (
@@ -62,8 +58,8 @@ const Hero = () => {
           </button>
         </div>
       </div>
-      <div className='border border-gray-300 shadow-md mx-2 p-6 rounded-md flex'>
-        <div className='flex mt-5 gap-10 lg:gap-16 border border-gray-300 shadow-md mx-2 p-6 rounded-md '>
+      <div className='border border-gray-300 shadow-md mx-2 p-6 rounded-md'>
+        <div className='flex flex-wrap justify-center items-center mt-5 gap-x-6 gap-y-4 lg:gap-16 border border-gray-300 shadow-md mx-2 p-6 rounded-md '>
             <p className='font-medium'>Trusted By</p>
             <img src={assets.microsoft_logo} alt=""  className='h-6' />
             <img src={assets.amazon_logo} alt=""   className='h-6'/>
