@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route,Routes } from 'react-router-dom'
 import Home from './pages/Home'
-import Applyjob from './pages/Applyjob'
+import Applyjob from './pages/ApplyJob'
 import Applications from './pages/Applications'
 
 const App = () => {
