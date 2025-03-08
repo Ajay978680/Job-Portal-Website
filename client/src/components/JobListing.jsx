@@ -1,10 +1,29 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { AppContext } from '../context/AppContext'
-import { assets, JobCategories, JobLocations} from '../assets/assets'
+import { assets, JobCategories, JobLocations } from '../assets/assets'
 import JobCard from './JobCard'
 
 const JobListing = () => {
-    const { isSearched, searchFilter, setSearchFilter,jobs } = useContext(AppContext)
+    const { isSearched, searchFilter, setSearchFilter, jobs } = useContext(AppContext)
+    const [showFilter, setShowFilter] = useState(true)
+    const [currentpage, setCurrentPage] = useState(1)
+    const[selectedCategories,setSelectedCategories] = useState([])
+    const [selectedLocations,setSelectedLocations] = useState([])
+
+    const [filteredJobs,setFilteredJobs] = useState(jobs)
+    
+
+    const handleCategoryChange = (category) => {
+        setSelectedCategories(
+            prev => prev.includes(category) ? prev.filter(c => c !== category) : [...prev, category]
+        )
+    }
+
+    const handleLocationChange = (location) => {
+        setSelectedLocations(
+            prev => prev.includes(location) ? prev.filter(c => c !== location) : [...prev, location]
+        )
+    }
 
     return (
         <div className='container 2xl:px-20 mx-auto flex flex-col lg:flex-row max-lg:space-y-8 py-8'>
@@ -44,6 +63,12 @@ const JobListing = () => {
                     </>
                 )}
 
+                <button className='px-6 py-1.5 rounded border border-gray-400 lg:hidden' onClick={e => {
+
+                }}>
+                    {showFilter ? "Close" : "Filters"}
+                </button>
+
                 {/* Category filter */}
                 <div className='max-lg-hidden'>
                     <h4 className='font-medium text-lg py-4 pb-1'>Search By Title</h4>
@@ -51,7 +76,9 @@ const JobListing = () => {
                         {
                             JobCategories.map((category, index) => (
                                 <li className='flex  gap-3 items-center' key={index}>
-                                    <input className='scale-125' type='checkbox' />
+                                    <input className='scale-125' type='checkbox' onChange={()=> handleCategoryChange(category)}
+                                        checked = {selectedCategories.includes(category)}
+                                    />
                                     {category}
                                 </li>
                             ))
@@ -65,10 +92,13 @@ const JobListing = () => {
                     <h4 className='font-medium text-lg py-4 pt-4'>Search By Location</h4>
                     <ul className='space-y-4 text-gray-600'>
                         {
-                            JobLocations.map((category, index) => (
+                            JobLocations.map((location, index) => (
                                 <li className='flex  gap-3 items-center' key={index}>
-                                    <input className='scale-125' type='checkbox' />
-                                    {category}
+                                    <input className='scale-125' type='checkbox' 
+                                        onChange={()=> handleLocationChange(location)}
+                                        checked = {selectedLocations.includes(location)}
+                                    />
+                                    {location}
                                 </li>
                             ))
                         }
@@ -82,10 +112,50 @@ const JobListing = () => {
                 <h3 className='font-medium text-3xl py-2' id='job-list'>Latest Jobs for You</h3>
                 <p className='mb-8'>Get Your Desired Job from top Companies</p>
                 <div className='grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4'>
-                    {jobs.map((job,index)=>(
-                        <JobCard key={index} job={job}/>
-                        ))}
+                    {jobs.slice((currentpage - 1) * 6, currentpage * 6).map((job, index) => (
+                        <JobCard key={index} job={job} />
+                    ))}
                 </div>
+
+                {/* pagination */}
+
+                {/* Pagination */}
+                {
+                    jobs.length > 0 && (
+                        <div className='flex items-center justify-center space-x-2 mt-20'>
+                            {/* Left Arrow */}
+                            <a href="#job-list">
+                                <img
+                                    onClick={() => setCurrentPage(Math.max(currentpage - 1, 1))}
+                                    src={assets.left_arrow_icon}
+                                    alt="Previous Page"
+                                />
+                            </a>
+
+                            {/* Page Numbers */}
+                            {Array.from({ length: Math.ceil(jobs.length / 6) }).map((_, index) => (
+                                <a href='#job-list' key={index}>
+                                    <button
+                                        onClick={() => setCurrentPage(index + 1)}
+                                        className={`w-10 h-10 items-center flex justify-center border border-gray-300 rounded 
+                            ${currentpage === index + 1 ? 'text-blue-600 bg-blue-100' : 'text-grey-500'}`}>
+                                        {index + 1}
+                                    </button>
+                                </a>
+                            ))}
+
+                            {/* Right Arrow */}
+                            <a href="#job-list">
+                                <img
+                                    onClick={() => setCurrentPage(Math.min(currentpage + 1, Math.ceil(jobs.length / 6)))}
+                                    src={assets.right_arrow_icon}
+                                    alt="Next Page"
+                                />
+                            </a>
+                        </div>
+                    )
+                }
+
             </section>
         </div>
     )
