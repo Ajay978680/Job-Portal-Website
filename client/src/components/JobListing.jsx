@@ -144,7 +144,7 @@ const JobListing = () => {
                     filteredJobs.length > 0 && (
                         <div className='flex items-center justify-center space-x-2 mt-20'>
                             {/* Left Arrow */}
-                            <a href="#job-list">
+                            <a  href="#job-list">
                                 <img
                                     onClick={() => setCurrentPage(Math.max(currentpage - 1, 1))}
                                     src={assets.left_arrow_icon}
