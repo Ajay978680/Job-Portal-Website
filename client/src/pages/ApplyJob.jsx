@@ -30,43 +30,42 @@ const Applyjob = () => {
     <>
       <Navbar />
 
-      <div className='min-h-screen flex flex-col py-10 container px-4'>
-        <div>
-            <div className='flex p-8'>
-              <div className=''>
-                <img src={assets.company_icon} alt="" />
-                <div>
-                  <h1 className='mt-4'>
+      <div className='min-h-screen flex flex-col py-10 container px-4 2xl:px-20 mx-auto'>
+        <div className='bg-white text-black rounded-lg w-full'>
+            <div className='flex  justify-center  md:justify-between flex-wrap gap-8 px-14 py-20 mb-6 bg-sky-50 border border-sky-400 rounded-xl'>
+              <div className='flex flex-col md:flex-row items-center'>
+                <img className='h-24 bg-white rounded-lg p-4 mr-4 max-md:mb-4 border' src={assets.company_icon} alt="" />
+                <div className='text-center md:text-left text-neutral-700'>
+                  <h1 className='text-2xl sm:text-4xl font-medium'>
                     {JobData.title}
                   </h1>
-                  <div className='flex gap-4 mt-4'>
-                    <span>
+                  <div className='flex flex-row flex-wrap max-md:justify-center gap-y-2 gap-6 items-center text-gray-600 mt-2 '>
+                    <span className='flex items-center gap-1'>
                       <img src={assets.suitcase_icon} alt="" />
                       {JobData.companyId.name}
                     </span>
-                    <span>
+                    <span className='flex items-center gap-1'>
                       <img src={assets.location_icon} alt="" />
                       {JobData.location}
                     </span>
-                    <span>
+                    <span className='flex items-center gap-1'>
                       <img src={assets.person_icon} alt="" />
                       {JobData.level}
                     </span>
-                    <span>
+                    <span className='flex items-center gap-1'>
                       <img src={assets.money_icon} alt="" />
                       LPA: {kconvert.convertTo(JobData.salary)}
                     </span>
                   </div>
                 </div>
               </div>
-                <div>
+                <div className='flex flex-col justify-center text-end text-sm max-md:mx-auto max-md:text-center'>
                   <button className='border rounded'>Apply Now</button>
                   <p>Posted {moment(JobData.date).fromNow()}</p>
                 </div>
             </div>
         </div>
       </div>
-
     </>
   ):
   (
