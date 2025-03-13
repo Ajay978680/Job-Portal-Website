@@ -21,7 +21,7 @@ const JobCard = ({job}) => {
         <p className='text-gray-500 text-sm mt-4' dangerouslySetInnerHTML={{__html:job.description.slice(0,150)}}></p>
         <div className='mt-5 flex gap-4 text-sm'>
             <button onClick={()=>{navigate(`/apply-job/${job._id}`);scrollTo(0,0)}} className=' items-center border rounded bg-blue-500 px-4 py-2'>Apply Now</button>
-            <button onClick={()=>{navigate(`/apply-job/${job._id}`);scrollTo(0,0)}} className=' items-center border rounded bg-grey-50o px-4 py-2'>Learn More</button>
+            <button onClick={()=>{navigate(`/apply-job/${job._id}`);scrollTo(0,0)}} className=' items-center border rounded bg-grey-500 px-4 py-2'>Learn More</button>
         </div>
     </div>
   )
